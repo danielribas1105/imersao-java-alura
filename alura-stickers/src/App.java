@@ -10,7 +10,9 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         //Realizar uma conexão HTTP e pegar os TOP 250 melhores filmes
-        
+
+        //String imdbKey = System.getenv("IMDB_KEY");//capturar uma variável de ambiente
+
         String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/TopMovies.json";
         URI uri = URI.create(url);
         var client = HttpClient.newHttpClient();
