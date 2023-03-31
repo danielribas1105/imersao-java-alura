@@ -33,7 +33,7 @@ public class FactoryStickers {
         graphics.setFont(fonte);
 
         //escrever uma frase na nova imagem
-        String texto = "TEXTO MAIOR";
+        String texto = "TEXTO QQ";
         FontMetrics fontMetrics = graphics.getFontMetrics();
         Rectangle2D rectangleText = fontMetrics.getStringBounds(texto, graphics);
         int larguraTexto = (int) rectangleText.getWidth();
