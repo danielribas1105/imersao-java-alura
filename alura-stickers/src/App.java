@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
@@ -27,6 +28,11 @@ public class App {
         var parser = new JsonParser();
         List<Map<String, String>> listaDeFilmes = parser.parse(body);
 
+        //Criando o diretório
+        String pastaSaida = "stickers/";
+        var path = new File(pastaSaida);
+        path.mkdir();
+
         //Exibir os dados da forma que escolhermos
         var factory = new FactoryStickers();
         for (Map<String,String> filme : listaDeFilmes) {
@@ -35,8 +41,7 @@ public class App {
             String urlImagem = filme.get("image");
             InputStream inputStream = new URL(urlImagem).openStream();
 
-            factory.createSticker(inputStream, "stickers/"+nomeArquivo);
-
+            factory.createSticker(inputStream, pastaSaida + nomeArquivo);
 
             System.out.println("\u001b[1m" + "TÍTULO: " + "\u001b[36m" + "\u001b[3m" + filme.get("title") + "\u001b[m");
             /*System.out.println("\u001b[1m" + "CARTAZ: " + "\u001b[m" + filme.get("image"));

@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.InputStream;
@@ -24,12 +25,18 @@ public class FactoryStickers {
         graphics.drawImage(imgOriginal, 0, 0, null);
 
         //configurar a fonte
-        Font fonte = new Font(Font.SANS_SERIF,Font.BOLD,64);
+        var fonte = new Font("Comic Sans",Font.BOLD,64);
         graphics.setColor(Color.blue);
         graphics.setFont(fonte);
 
         //escrever uma frase na nova imagem
-        graphics.drawString("TEXTO",100, novaAltura - 100);
+        String texto = "TEXTO MAIOR";
+        FontMetrics fontMetrics = graphics.getFontMetrics();
+        Rectangle2D rectangleText = fontMetrics.getStringBounds(texto, graphics);
+        int larguraTexto = (int) rectangleText.getWidth();
+        int positionX = (largura - larguraTexto)/2;
+        int positionY = novaAltura - 100;
+        graphics.drawString(texto, positionX, positionY);
 
         //salvar a nova imagem em um novo arquivo
         ImageIO.write(imgModificada, "png", new File(nomeArquivo));
