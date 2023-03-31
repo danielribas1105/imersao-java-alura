@@ -1,5 +1,8 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -26,7 +29,7 @@ public class FactoryStickers {
 
         //configurar a fonte
         var fonte = new Font("Comic Sans",Font.BOLD,64);
-        graphics.setColor(Color.blue);
+        graphics.setColor(Color.yellow);
         graphics.setFont(fonte);
 
         //escrever uma frase na nova imagem
@@ -37,6 +40,22 @@ public class FactoryStickers {
         int positionX = (largura - larguraTexto)/2;
         int positionY = novaAltura - 100;
         graphics.drawString(texto, positionX, positionY);
+
+        //criar borda no texto
+        FontRenderContext fontRenderContext = graphics.getFontRenderContext();
+        TextLayout textLayout = new TextLayout(texto, fonte, fontRenderContext);
+
+        Shape outline = textLayout.getOutline(null);
+        AffineTransform transform = graphics.getTransform();
+        transform.translate(positionX, positionY);
+        graphics.setTransform(transform);
+
+        BasicStroke outLineStroke = new BasicStroke(largura * 0.004f); //setar o tamanho do pincel de contorno
+        graphics.setStroke(outLineStroke);
+
+        graphics.setColor(Color.BLACK);
+        graphics.draw(outline);
+        graphics.setClip(outline);
 
         //salvar a nova imagem em um novo arquivo
         ImageIO.write(imgModificada, "png", new File(nomeArquivo));
