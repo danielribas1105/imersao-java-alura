@@ -15,7 +15,7 @@ public class App {
         //Realizar uma conexão HTTP e pegar os TOP 250 melhores filmes
 
         //String imdbKey = System.getenv("IMDB_KEY");//capturar uma variável de ambiente
-
+        //String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/MostPopularMovies.json";
         String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/TopMovies.json";
         URI uri = URI.create(url);
         var client = HttpClient.newHttpClient();
@@ -39,9 +39,10 @@ public class App {
 
             String nomeArquivo = filme.get("title") + ".png";
             String urlImagem = filme.get("image");
+            double notaFilme = Double.parseDouble(filme.get("imDbRating"));
             InputStream inputStream = new URL(urlImagem).openStream();
 
-            factory.createSticker(inputStream, pastaSaida + nomeArquivo);
+            factory.createSticker(inputStream, pastaSaida + nomeArquivo, notaFilme);
 
             System.out.println("\u001b[1m" + "TÍTULO: " + "\u001b[36m" + "\u001b[3m" + filme.get("title") + "\u001b[m");
             /*System.out.println("\u001b[1m" + "CARTAZ: " + "\u001b[m" + filme.get("image"));
