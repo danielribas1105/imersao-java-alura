@@ -37,16 +37,12 @@ public class FactoryStickers {
         //configurar imagem de classificação
         InputStream inputClassificacao = new FileInputStream(new File(imgNota));
         BufferedImage imgOriginalNota = ImageIO.read(inputClassificacao);
-        int larguraNota = imgOriginalNota.getWidth();
-        int alturaNota = imgOriginalNota.getHeight();
-        BufferedImage imgModificadaNota = new BufferedImage(larguraNota, alturaNota, BufferedImage.TRANSLUCENT);
 
         //copiar a imagens originais (poster e nota) para a nova imagem (em memória)
         Graphics2D graphics = (Graphics2D) imgModificada.getGraphics();
         graphics.drawImage(imgOriginal, 0, 0, null);
-        graphics.drawImage(imgOriginalNota,0, novaAltura - 120, null);
 
-        //configurar a fonte
+        //configurar a fonte título
         var fonte = new Font("Comic Sans",Font.BOLD,48);
         graphics.setColor(Color.yellow);
         graphics.setFont(fonte);
@@ -59,6 +55,38 @@ public class FactoryStickers {
         int positionX = (largura - larguraTexto)/2;
         int positionY = novaAltura - 150;
         graphics.drawString(texto, positionX, positionY);
+
+        /*
+        *** Configuração e inserção da nota do filme
+        */
+        //configurar fonte nota
+        var fonteNota = new Font("Impact", Font.BOLD | Font.ITALIC, 100);
+        graphics.setColor(Color.blue);
+        graphics.setFont(fonteNota);
+
+        //escrever nota do filme
+        String notaFilme = String.valueOf(nota);
+        FontMetrics fontMetricsNota = graphics.getFontMetrics();
+        Rectangle2D rectangleNota = fontMetricsNota.getStringBounds(notaFilme, graphics);
+        int larguraNota = (int) rectangleNota.getWidth();
+        int alturaNota = (int) rectangleNota.getHeight();
+        int positionNotaX = (largura - larguraNota)/2;
+        int positionNotaY = novaAltura - alturaNota/5;
+
+        /*
+         *** Configuração e inserção da foto
+         */
+        InputStream inputFoto = new FileInputStream(new File("img/daniel_ok.png"));
+        BufferedImage imgOriginalFoto = ImageIO.read(inputFoto);
+
+        //desenhar imagem da classificação
+        graphics.drawImage(imgOriginalNota,positionX, novaAltura - 120, null);
+
+        //escrever a nota do filme
+        graphics.drawString(notaFilme,positionNotaX, positionNotaY);
+
+        //desenhar a foto
+        graphics.drawImage(imgOriginalFoto,positionX + larguraTexto - 100, novaAltura - 120, null);
 
         //criar borda no texto
         FontRenderContext fontRenderContext = graphics.getFontRenderContext();
@@ -78,7 +106,6 @@ public class FactoryStickers {
 
         //salvar a nova imagem em um novo arquivo
         ImageIO.write(imgModificada, "png", new File(nomeArquivo));
-        //ImageIO.write(imgModificadaNota,"png",new File(nomeArquivo));
 
     }
 
