@@ -1,4 +1,4 @@
 #Arquivos e pastas a serem ignorados pelo Git:
 
-/img
-/stickers
+img
+stickers
