@@ -16,14 +16,15 @@ public class App {
 
         //String imdbKey = System.getenv("IMDB_KEY");//capturar uma variável de ambiente
         //String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/MostPopularMovies.json";
-        String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/TopMovies.json";
+        //String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/TopMovies.json";
+        String url = "https://api.nasa.gov/planetary/apod?api_key=1h6ReN05vxXQkBoJgP8huhYaQDvYmzqHpF0kdKCG&start_date=2023-04-01&end_date=2023-04-03";
 
         ClientHttp clientHttp = new ClientHttp();
 
         //Extrair somente os dados que interessam(Título, Poster, Classificação)
 
         var parser = new JsonParser();
-        List<Map<String, String>> listaDeFilmes = parser.parse(clientHttp.findClientHttp(url));
+        List<Map<String, String>> contentList = parser.parse(clientHttp.findClientHttp(url));
 
         //Criando o diretório
         String pastaSaida = "stickers/";
@@ -32,20 +33,21 @@ public class App {
 
         //Exibir os dados da forma que escolhermos
         var factory = new FactoryStickers();
-        for (Map<String,String> filme : listaDeFilmes) {
+        for (Map<String,String> content : contentList) {
 
-            String nomeArquivo = filme.get("title") + ".png";
-            String urlImagem = filme.get("image");
-            double notaFilme = Double.parseDouble(filme.get("imDbRating"));
+            String nomeArquivo = content.get("title") + ".png";
+            String urlImagem = content.get("url");
+            //double notaFilme = Double.parseDouble(content.get("imDbRating"));
+            double notaFilme = 9.0;
             InputStream inputStream = new URL(urlImagem).openStream();
 
             factory.createSticker(inputStream, pastaSaida + nomeArquivo, notaFilme);
 
-            System.out.println("\u001b[1m" + "TÍTULO: " + "\u001b[36m" + "\u001b[3m" + filme.get("title") + "\u001b[m");
-            /*System.out.println("\u001b[1m" + "CARTAZ: " + "\u001b[m" + filme.get("image"));
-            System.out.println("\u001b[1m" + "CLASSIFICAÇÃO: " + "\u001b[34m" + filme.get("imDbRating") + "\u001b[m");
+            System.out.println("\u001b[1m" + "TÍTULO: " + "\u001b[36m" + "\u001b[3m" + content.get("title") + "\u001b[m");
+            /*System.out.println("\u001b[1m" + "CARTAZ: " + "\u001b[m" + content.get("image"));
+            System.out.println("\u001b[1m" + "CLASSIFICAÇÃO: " + "\u001b[34m" + content.get("imDbRating") + "\u001b[m");
 
-            int quantEstrelas = (int) Double.parseDouble(filme.get("imDbRating"));
+            int quantEstrelas = (int) Double.parseDouble(content.get("imDbRating"));
 
             for(int i = 0; i <= quantEstrelas; i++){
                 System.out.print("⭐");
