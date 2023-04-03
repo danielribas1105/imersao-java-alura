@@ -17,16 +17,13 @@ public class App {
         //String imdbKey = System.getenv("IMDB_KEY");//capturar uma variável de ambiente
         //String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/MostPopularMovies.json";
         String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/TopMovies.json";
-        URI uri = URI.create(url);
-        var client = HttpClient.newHttpClient();
-        var request = HttpRequest.newBuilder(uri).GET().build();
-        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-        String body = response.body();
+
+        ClientHttp clientHttp = new ClientHttp();
 
         //Extrair somente os dados que interessam(Título, Poster, Classificação)
 
         var parser = new JsonParser();
-        List<Map<String, String>> listaDeFilmes = parser.parse(body);
+        List<Map<String, String>> listaDeFilmes = parser.parse(clientHttp.findClientHttp(url));
 
         //Criando o diretório
         String pastaSaida = "stickers/";
