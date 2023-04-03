@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
-import java.util.Map;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -11,8 +10,12 @@ public class App {
 
         //String imdbKey = System.getenv("IMDB_KEY");//capturar uma variável de ambiente
         //String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/MostPopularMovies.json";
-        String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/TopMovies.json";
-        //String url = "https://api.nasa.gov/planetary/apod?api_key=1h6ReN05vxXQkBoJgP8huhYaQDvYmzqHpF0kdKCG&start_date=2023-04-01&end_date=2023-04-03";
+        
+        //String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/TopMovies.json";
+        //ContentExtractor extractor = new ContentExtractorImdb();
+
+        String url = "https://api.nasa.gov/planetary/apod?api_key=1h6ReN05vxXQkBoJgP8huhYaQDvYmzqHpF0kdKCG&start_date=2023-04-01&end_date=2023-04-03";
+        ContentExtractor extractor = new ContentExtractorNasa();
 
         ClientHttp clientHttp = new ClientHttp();
         String jason = clientHttp.findDados(url);
@@ -22,9 +25,6 @@ public class App {
         var path = new File(pastaSaida);
         path.mkdir();
 
-        //exibir e manipular os dados
-        //ContentExtractorNasa extractor = new ContentExtractorNasa();
-        ContentExtractorImdb extractor = new ContentExtractorImdb();
         List<Content> contents = extractor.extractContent(jason);
 
         //Exibir os dados da forma que escolhermos
