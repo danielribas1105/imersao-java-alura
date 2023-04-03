@@ -7,7 +7,7 @@ import java.net.http.HttpResponse;
 public class ClientHttp {
     private String url;
 
-    public String findClientHttp(String url) {
+    public String findDados(String url) {
 
         try {
             URI uri = URI.create(url);

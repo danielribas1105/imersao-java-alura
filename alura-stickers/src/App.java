@@ -1,11 +1,6 @@
 import java.io.File;
 import java.io.InputStream;
-import java.net.URI;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
 import java.util.List;
 import java.util.Map;
 
@@ -20,11 +15,12 @@ public class App {
         String url = "https://api.nasa.gov/planetary/apod?api_key=1h6ReN05vxXQkBoJgP8huhYaQDvYmzqHpF0kdKCG&start_date=2023-04-01&end_date=2023-04-03";
 
         ClientHttp clientHttp = new ClientHttp();
+        String jason = clientHttp.findDados(url);
 
         //Extrair somente os dados que interessam(Título, Poster, Classificação)
 
         var parser = new JsonParser();
-        List<Map<String, String>> contentList = parser.parse(clientHttp.findClientHttp(url));
+        List<Map<String, String>> contentList = parser.parse(jason);
 
         //Criando o diretório
         String pastaSaida = "stickers/";
