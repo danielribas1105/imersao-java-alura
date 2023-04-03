@@ -5,10 +5,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class ClientHttp {
-
     private String url;
 
-    public String findClientHttp(String url){
+    public String findClientHttp(String url) {
 
         try {
             URI uri = URI.create(url);
@@ -16,7 +15,7 @@ public class ClientHttp {
             var request = HttpRequest.newBuilder(uri).GET().build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             return response.body();
-        }catch (IOException | InterruptedException e){
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
