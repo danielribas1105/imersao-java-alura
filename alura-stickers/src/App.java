@@ -9,13 +9,13 @@ public class App {
         //Realizar uma conexão HTTP e pegar os TOP 250 melhores filmes
 
         //String imdbKey = System.getenv("IMDB_KEY");//capturar uma variável de ambiente
-        //String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/MostPopularMovies.json";
 
-        //String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/TopMovies.json";
-        //ContentExtractor extractor = new ContentExtractorImdb();
+        //API api = API.NASA;
+        //API api = API.IMDB_TOP_MOVIES;
+        API api = API.IMDB_TOP_SERIES;
 
-        String url = "https://api.nasa.gov/planetary/apod?api_key=1h6ReN05vxXQkBoJgP8huhYaQDvYmzqHpF0kdKCG&start_date=2023-04-01&end_date=2023-04-03";
-        ContentExtractor extractor = new ContentExtractorNasa();
+        String url = api.getUrl();
+        ContentExtractor extractor = api.getExtractor();
 
         ClientHttp clientHttp = new ClientHttp();
         String jason = clientHttp.findDados(url);
