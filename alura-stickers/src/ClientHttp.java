@@ -16,7 +16,7 @@ public class ClientHttp {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             return response.body();
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new ClientHttpException("Erro ao consultar Url");
         }
     }
 }

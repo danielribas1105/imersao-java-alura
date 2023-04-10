@@ -10,7 +10,7 @@ public class App {
 
         //String imdbKey = System.getenv("IMDB_KEY");//capturar uma variável de ambiente
         //String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/MostPopularMovies.json";
-        
+
         //String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/TopMovies.json";
         //ContentExtractor extractor = new ContentExtractorImdb();
 
